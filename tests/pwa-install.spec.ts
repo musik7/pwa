@@ -1,17 +1,18 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('PWA install flow', () => {
+test.describe('PWA install flow (GitHub Pages)', () => {
   test('serves manifest and registers service worker and handles install prompt', async ({ page }) => {
     await page.goto('/');
 
-    // Check manifest link exists and is fetchable
+    // Check manifest link exists and is fetchable (resolve relative URL)
     const manifestHref = await page.locator('link[rel="manifest"]').getAttribute('href');
-    expect(manifestHref).toBe('/manifest.json');
+    expect(manifestHref).toBeTruthy();
 
-    const manifest = await page.request.get(manifestHref);
+    const manifestUrl = new URL(manifestHref, page.url()).href;
+    const manifest = await page.request.get(manifestUrl);
     expect(manifest.ok()).toBeTruthy();
     const manifestJson = await manifest.json();
-    expect(manifestJson.start_url).toBe('/');
+    expect(manifestJson.start_url).toBe('./');
 
     // Wait for service worker to be registered
     const swRegistered = await page.evaluate(async () => {

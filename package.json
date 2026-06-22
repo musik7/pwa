@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npx serve public -l 3000",
+    "start": "npx serve -l 3000",
     "test": "npx playwright test"
   },
   "devDependencies": {
