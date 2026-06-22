@@ -7,12 +7,8 @@ export default defineConfig({
   reporter: 'list',
   use: {
     actionTimeout: 0,
-    baseURL: 'http://localhost:3000',
+    // Point tests to the GitHub Pages URL for the project site
+    baseURL: 'https://musik7.github.io/pwa',
     trace: 'on-first-retry',
-  },
-  webServer: {
-    command: 'npm run start',
-    port: 3000,
-    reuseExistingServer: !process.env.CI,
-  },
+  }
 });
